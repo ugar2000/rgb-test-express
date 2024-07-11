@@ -6,14 +6,16 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+require('dotenv').config()
 const usersRouter = require('./routes/users');
 const filesRouter = require('./routes/files');
-const port = 3000;
+
+const port = process.env.PORT || 3000;
+const mongoUrl = process.env.MONGO_DB_URL || 'mongodb://localhost:27017/test';
 
 const app = express();
 
-mongoose.connect('mongodb+srv://rgbuser:G1vTiOwu1WUHPL8O@cluster0.zmvaioc.mongodb.net/?appName=Cluster0')
+mongoose.connect(mongoUrl)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Could not connect to MongoDB', err));
 
